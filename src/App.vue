@@ -1,38 +1,63 @@
 <template>
-  <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
+  <v-app id="ghood" dark>
+    <v-navigation-drawer v-model="drawer" fixed clipped app>
+      <NavList :items="top_items" />
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
+      <NavList :items="bottom_items" />
+    </v-navigation-drawer>
+    <v-toolbar app absolute clipped-left>
+      <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
+      <span class="title ml-3 mr-5"
+        ><span class="secondary--text">g</span>hood&nbsp;
+        <span class="font-weight-light">Dashboard</span>
+      </span>
+      <v-spacer></v-spacer>
+      <v-layout row align-center>
+        <v-icon left>stars</v-icon>
+        <v-flex
+          ><v-progress-linear id="progress" value="80"></v-progress-linear
+        ></v-flex>
+      </v-layout>
+      <v-spacer></v-spacer>
     </v-toolbar>
-
     <v-content>
-      <HelloWorld />
+      <v-container fluid fill-height>
+        <v-layout justify-center align-center>
+          <v-flex shrink>
+            <!--Content-->
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import NavList from '@/components/NavList.vue'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld,
+    NavList,
   },
-  data() {
-    return {
-      //
-    }
-  },
+  data: () => ({
+    drawer: null,
+    top_items: [
+      { heading: 'Navigation' },
+      { icon: 'dashboard', text: 'Dashboard', active: true },
+      { icon: 'trending_up', text: 'Progress' },
+      { icon: 'card_giftcard', text: 'Rewards' },
+    ],
+    bottom_items: [
+      { heading: 'Other' },
+      { icon: 'help', text: 'Help' },
+      { icon: 'settings', text: 'Settings' },
+    ],
+  }),
 }
 </script>
+
+<style lang="stylus">
+#ghood
+  .v-navigation-drawer__border
+    display: none
+</style>
